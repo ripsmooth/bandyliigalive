@@ -2,30 +2,27 @@
 <html lang="fi">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bandyliiga – selain testi</title>
+<title>Bandyliiga – ottelutesti</title>
 <style>
 body{font-family:Arial,sans-serif;background:#111;color:#fff;margin:0}
-.wrap{max-width:1200px;margin:25px auto;padding:20px}
+.wrap{max-width:1400px;margin:20px auto;padding:20px}
 button{font-size:18px;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-pre{background:#050505;padding:16px;border-radius:8px;white-space:pre-wrap;word-break:break-word}
-.ok{color:#4ade80}.err{color:#f87171}.box{background:#202020;padding:15px;border-radius:8px;margin:12px 0}
+pre{background:#050505;padding:16px;border-radius:8px;white-space:pre-wrap;word-break:break-word;max-height:700px;overflow:auto}
+.box{background:#202020;padding:15px;border-radius:8px;margin:12px 0}
 </style></head>
 <body><div class="wrap">
-<h1>🏑 Bandyliiga – Playwright-testi</h1>
-<div class="box">Tämä testi avaa Finbandyn julkisen Bandyliiga-sivun oikealla Chromium-selaimella palvelimella ja yrittää suorittaa JavaScript-ohjauksen.</div>
+<h1>🏑 Bandyliiga – otteluohjelman testi</h1>
+<div class="box">Testi avaa Bandyliigan julkisen sivun Chromiumilla, etsii Runkosarjan otteluohjelman linkin ja avaa sen. API-avainta ei käytetä.</div>
 <button onclick="run()">Aja testi</button>
-<p id="status"></p>
 <pre id="out">Paina nappia.</pre>
 <script>
 async function run(){
- document.getElementById('status').textContent='Testi käynnissä…';
- document.getElementById('out').textContent='';
+ document.getElementById('out').textContent='Testi käynnissä…';
  try{
-  const r=await fetch('/api/browser');
+  const r=await fetch('/api/matches');
   const j=await r.json();
-  document.getElementById('status').innerHTML=r.ok?'<span class="ok">Valmis</span>':'<span class="err">Virhe</span>';
   document.getElementById('out').textContent=JSON.stringify(j,null,2);
- }catch(e){document.getElementById('status').textContent='Virhe';document.getElementById('out').textContent=e.stack||e}
+ }catch(e){document.getElementById('out').textContent=e.stack||e}
 }
 </script>
 </div></body></html>
