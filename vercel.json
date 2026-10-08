@@ -1,0 +1,5 @@
+{
+  "functions": {
+    "api/test.js": { "runtime": "nodejs22.x" }
+  }
+}
