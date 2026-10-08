@@ -1,11 +1,15 @@
-# Bandyliiga – kaikki datat testi
+# Bandyliiga – yksittäisen ottelun testi
 
-Avaa ilman API-avainta Chromiumilla:
-1. Sarjataulukko: `sarja.php?...&sarja=MBL`
-2. Kaikki ottelut: `sarja.php?...&sarja=MBL&ottelut=1`
-3. Runkosarjan maalipörssi: `maaliporssi.php?...&sarja=MBL&lohko=5`
+Testaa TorneoPalin yksittäistä ottelusivua ilman API-avainta.
 
-Tulostaa myös HTML-taulukoiden rivit ja otteluihin liittyvät linkit.
+Esimerkiksi:
+`/api/match?id=24901`
 
-Jos `matches.tables` sisältää ottelurivit, seuraava vaihe voidaan tehdä suoraan
-oikeaksi Bandyliiga-tulospalveluksi.
+Tavoite:
+- nähdä ottelun lopputulos / kellonaika
+- nähdä mahdolliset kokoonpanot
+- nähdä maalit ja tapahtumat
+- löytää live-/päivityspyyntöjä
+- löytää mahdolliset ottelun sisäiset endpointit
+
+Kun tämä toimii, seuraava vaihe on yhdistää ottelulista + ottelusivut + automaattinen päivitys yhdeksi Bandyliiga-sivuksi.
