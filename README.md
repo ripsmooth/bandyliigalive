@@ -1,23 +1,20 @@
-# Bandyliiga TorneoPal - testi
+# Bandyliiga Playwright - testi
 
-Tämä on tarkoituksella pieni testi, jolla selvitetään saadaanko Finbandyn julkisesta
-TorneoPal-sarjasivusta dataa ilman API-avainta.
+Tämä testi yrittää avata Finbandyn TorneoPal-sivun oikealla Chromium-selaimella
+Vercelin serverless-funktiossa.
+
+Se ei käytä TorneoPal API-avainta.
 
 ## Vercel
+Lataa tiedostot GitHubiin ja deployaa Verceliin. Avaa etusivu ja paina "Aja testi".
 
-1. Lataa tämä kansio GitHub-repoon.
-2. Importtaa repo Verceliin.
-3. Deploy.
-4. Avaa:
-   `https://OMA-PROJEKTI.vercel.app/`
-5. Skaalaus:
-   `https://OMA-PROJEKTI.vercel.app/?scale=120`
+Testi palauttaa:
+- lopullisen URL:n
+- sivun title
+- sivun tekstin
+- taulukoiden määrän
+- linkkien määrän
+- HTML:n koon
+- TorneoPaliin liittyvät verkkopyynnöt
 
-Testi ei käytä TorneoPal API-avainta.
-
-Jos `Palvelimen analyysi` näyttää HTML:n koon ja sisältää ottelu-/sarjataulukkotekstiä,
-seuraava vaihe on kirjoittaa parseri, joka muodostaa oman JSON-datan:
-- standings
-- upcoming matches
-- results
-- match details
+Jos tämä toimii, seuraava vaihe on parseroida sarjataulukko ja ottelut.

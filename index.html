@@ -1,59 +1,31 @@
 <!doctype html>
 <html lang="fi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bandyliiga – testipalvelu</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bandyliiga – selain testi</title>
 <style>
-:root{--scale:1}
-*{box-sizing:border-box}body{margin:0;background:#111;color:#fff;font-family:Arial,sans-serif}
-.wrap{width:min(1200px,calc(100% - 24px));margin:16px auto;transform:scale(var(--scale));transform-origin:top left}
-h1{margin:0 0 12px;font-size:32px}.note{background:#222;padding:12px;border-radius:8px;margin-bottom:12px}
-button{padding:8px 12px;border:0;border-radius:6px;cursor:pointer}
-pre{white-space:pre-wrap;word-break:break-word;background:#080808;padding:12px;border-radius:8px;min-height:180px}
-table{border-collapse:collapse;width:100%;background:#1c1c1c}td,th{padding:8px;border-bottom:1px solid #333;text-align:left}
-.small{opacity:.7;font-size:13px}
-</style>
-</head>
-<body>
-<div class="wrap">
-<h1>🏑 Bandyliiga – TorneoPal-testi</h1>
-<div class="note">
-Tämä testi yrittää hakea Finbandyn julkisen Bandyliiga-sivun palvelimen kautta ilman API-avainta.
-URL-skaalaus toimii muodossa <b>?scale=120</b>.
-</div>
-<button onclick="loadTest()">Hae tiedot uudelleen</button>
-<div id="status" class="small"></div>
-<h2>Haettu sisältö</h2>
-<pre id="output">Haetaan…</pre>
-<h2>Palvelimen analyysi</h2>
-<div id="analysis"></div>
-</div>
+body{font-family:Arial,sans-serif;background:#111;color:#fff;margin:0}
+.wrap{max-width:1200px;margin:25px auto;padding:20px}
+button{font-size:18px;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
+pre{background:#050505;padding:16px;border-radius:8px;white-space:pre-wrap;word-break:break-word}
+.ok{color:#4ade80}.err{color:#f87171}.box{background:#202020;padding:15px;border-radius:8px;margin:12px 0}
+</style></head>
+<body><div class="wrap">
+<h1>🏑 Bandyliiga – Playwright-testi</h1>
+<div class="box">Tämä testi avaa Finbandyn julkisen Bandyliiga-sivun oikealla Chromium-selaimella palvelimella ja yrittää suorittaa JavaScript-ohjauksen.</div>
+<button onclick="run()">Aja testi</button>
+<p id="status"></p>
+<pre id="out">Paina nappia.</pre>
 <script>
-const p=new URLSearchParams(location.search);
-const s=Math.max(.5,Math.min(2.5,(Number(p.get("scale"))||100)/100));
-document.documentElement.style.setProperty("--scale",s);
-
-async function loadTest(){
- const st=document.getElementById('status'), out=document.getElementById('output'), a=document.getElementById('analysis');
- st.textContent='Haetaan…';
+async function run(){
+ document.getElementById('status').textContent='Testi käynnissä…';
+ document.getElementById('out').textContent='';
  try{
-   const r=await fetch('/api/test');
-   const j=await r.json();
-   st.textContent=`HTTP ${r.status} – ${new Date().toLocaleTimeString()}`;
-   out.textContent=j.html_preview || j.error || JSON.stringify(j,null,2);
-   a.innerHTML=`<table>
-   <tr><th>HTTP</th><td>${j.http_status??'–'}</td></tr>
-   <tr><th>Sivun koko</th><td>${j.bytes??'–'} tavua</td></tr>
-   <tr><th>Otsikko</th><td>${j.title||'–'}</td></tr>
-   <tr><th>Taulukoita</th><td>${j.tables??'–'}</td></tr>
-   <tr><th>Linkkejä</th><td>${j.links??'–'}</td></tr>
-   <tr><th>Mahdolliset otteluviittaukset</th><td>${j.match_hints??'–'}</td></tr>
-   </table>
-   <p class="small">Jos palvelin saa julkisen HTML:n, seuraava vaihe on tehdä parseri sarjataulukolle ja otteluille.</p>`;
- }catch(e){st.textContent='Virhe';out.textContent=e.stack||e}
+  const r=await fetch('/api/browser');
+  const j=await r.json();
+  document.getElementById('status').innerHTML=r.ok?'<span class="ok">Valmis</span>':'<span class="err">Virhe</span>';
+  document.getElementById('out').textContent=JSON.stringify(j,null,2);
+ }catch(e){document.getElementById('status').textContent='Virhe';document.getElementById('out').textContent=e.stack||e}
 }
-loadTest();
 </script>
-</body>
-</html>
+</div></body></html>
