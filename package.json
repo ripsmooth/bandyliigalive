@@ -1,5 +1,5 @@
 {
-  "name":"bandyliiga-playwright-matches",
+  "name":"bandyliiga-playwright-all-data",
   "private":true,
   "engines":{"node":"24.x"},
   "dependencies":{

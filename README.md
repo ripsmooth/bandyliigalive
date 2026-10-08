@@ -1,11 +1,11 @@
-# Bandyliiga Playwright - ottelutesti
+# Bandyliiga – kaikki datat testi
 
-Avaa julkisen Bandyliigan TorneoPal-sivun Chromiumilla ilman API-avainta,
-etsii Runkosarjan/otteluohjelman linkin ja avaa sen.
+Avaa ilman API-avainta Chromiumilla:
+1. Sarjataulukko: `sarja.php?...&sarja=MBL`
+2. Kaikki ottelut: `sarja.php?...&sarja=MBL&ottelut=1`
+3. Runkosarjan maalipörssi: `maaliporssi.php?...&sarja=MBL&lohko=5`
 
-Jos ottelut löytyvät, seuraava vaihe on tehdä parseri:
-- tulevat ottelut
-- tulokset
-- ottelun URL/ID
-- yksittäisen ottelun tapahtumat
-- mahdollinen live
+Tulostaa myös HTML-taulukoiden rivit ja otteluihin liittyvät linkit.
+
+Jos `matches.tables` sisältää ottelurivit, seuraava vaihe voidaan tehdä suoraan
+oikeaksi Bandyliiga-tulospalveluksi.

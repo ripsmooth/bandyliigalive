@@ -2,27 +2,20 @@
 <html lang="fi">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bandyliiga – ottelutesti</title>
+<title>Bandyliiga – datatesti</title>
 <style>
-body{font-family:Arial,sans-serif;background:#111;color:#fff;margin:0}
-.wrap{max-width:1400px;margin:20px auto;padding:20px}
-button{font-size:18px;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-pre{background:#050505;padding:16px;border-radius:8px;white-space:pre-wrap;word-break:break-word;max-height:700px;overflow:auto}
-.box{background:#202020;padding:15px;border-radius:8px;margin:12px 0}
+body{font-family:Arial,sans-serif;background:#111;color:#fff;margin:0}.wrap{max-width:1500px;margin:20px auto;padding:20px}
+button{font-size:18px;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}pre{background:#050505;padding:16px;border-radius:8px;white-space:pre-wrap;word-break:break-word;max-height:900px;overflow:auto}.box{background:#202020;padding:15px;border-radius:8px;margin:12px 0}
 </style></head>
 <body><div class="wrap">
-<h1>🏑 Bandyliiga – otteluohjelman testi</h1>
-<div class="box">Testi avaa Bandyliigan julkisen sivun Chromiumilla, etsii Runkosarjan otteluohjelman linkin ja avaa sen. API-avainta ei käytetä.</div>
+<h1>🏑 Bandyliiga – datatesti</h1>
+<div class="box">Tutkii ilman API-avainta: sarjataulukon, kaikki ottelut ja maalipörssin. Käyttää Chromiumia.</div>
 <button onclick="run()">Aja testi</button>
 <pre id="out">Paina nappia.</pre>
 <script>
 async function run(){
- document.getElementById('out').textContent='Testi käynnissä…';
- try{
-  const r=await fetch('/api/matches');
-  const j=await r.json();
-  document.getElementById('out').textContent=JSON.stringify(j,null,2);
- }catch(e){document.getElementById('out').textContent=e.stack||e}
+ document.getElementById('out').textContent='Haetaan kaikkia tietoja…';
+ try{const r=await fetch('/api/all');const j=await r.json();document.getElementById('out').textContent=JSON.stringify(j,null,2)}
+ catch(e){document.getElementById('out').textContent=e.stack||e}
 }
-</script>
-</div></body></html>
+</script></div></body></html>
