@@ -1,28 +1,9 @@
 <!doctype html>
 <html lang="fi">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bandyliiga – ottelusivu testi</title>
-<style>
-body{font-family:Arial,sans-serif;background:#111;color:#fff;margin:0}.wrap{max-width:1500px;margin:20px auto;padding:20px}
-button{font-size:18px;padding:12px 18px;border:0;border-radius:7px;cursor:pointer}
-input{font-size:18px;padding:11px;width:180px;margin-right:8px;border-radius:6px;border:1px solid #555;background:#222;color:#fff}
-pre{background:#050505;padding:16px;border-radius:8px;white-space:pre-wrap;word-break:break-word;max-height:850px;overflow:auto}
-.box{background:#202020;padding:15px;border-radius:8px;margin:12px 0}
-</style></head>
-<body><div class="wrap">
-<h1>🏑 Bandyliiga – yksittäisen ottelun testi</h1>
-<div class="box">Oletuksena testataan ottelu 24901. Voit vaihtaa ID:n. Testi avaa ottelusivun Chromiumilla ja tutkii sivun tekstin, taulukot, linkit sekä TorneoPal/Finbandy-verkkopyynnöt.</div>
-<input id="id" value="24901"><button onclick="run()">Aja testi</button>
-<pre id="out">Paina nappia.</pre>
-<script>
-async function run(){
- const id=document.getElementById('id').value.trim();
- document.getElementById('out').textContent='Avataan ottelu '+id+'…';
- try{
-   const r=await fetch('/api/match?id='+encodeURIComponent(id));
-   const j=await r.json();
-   document.getElementById('out').textContent=JSON.stringify(j,null,2);
- }catch(e){document.getElementById('out').textContent=e.stack||e}
-}
-</script></div></body></html>
+<head><meta charset="utf-8"><title>Bandyliiga PDF-testi</title></head>
+<body>
+<h1>Bandyliiga – ottelupöytäkirjan PDF-testi</h1>
+<p>Suorita <code>npm install</code> ja sen jälkeen <code>npm start</code>.</p>
+<p>Oletusottelu: <strong>24901</strong> (Botnia – Kampparit).</p>
+</body>
+</html>

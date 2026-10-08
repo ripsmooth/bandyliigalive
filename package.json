@@ -1,9 +1,13 @@
 {
-  "name":"bandyliiga-playwright-match-test",
-  "private":true,
-  "engines":{"node":"24.x"},
-  "dependencies":{
-    "@sparticuz/chromium":"^143.0.1",
-    "playwright-core":"^1.57.0"
+  "name": "bandyliiga-playwright-pdf-test",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node api/pdf.js"
+  },
+  "dependencies": {
+    "@sparticuz/chromium": "latest",
+    "playwright-core": "latest",
+    "pdf-parse": "latest"
   }
 }

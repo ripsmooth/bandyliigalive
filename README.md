@@ -1,15 +1,38 @@
-# Bandyliiga – yksittäisen ottelun testi
+# Bandyliiga – ottelupöytäkirjan PDF-testi
 
-Testaa TorneoPalin yksittäistä ottelusivua ilman API-avainta.
+Tämä testi tarkistaa, saadaanko TorneoPalin julkisesta ottelupöytäkirjan PDF:stä
+käyttökelpoista tekstidataa ilman API-avainta.
 
-Esimerkiksi:
-`/api/match?id=24901`
+Oletusottelu: 24901 (Botnia – Kampparit).
 
-Tavoite:
-- nähdä ottelun lopputulos / kellonaika
-- nähdä mahdolliset kokoonpanot
-- nähdä maalit ja tapahtumat
-- löytää live-/päivityspyyntöjä
-- löytää mahdolliset ottelun sisäiset endpointit
+## Käyttö
 
-Kun tämä toimii, seuraava vaihe on yhdistää ottelulista + ottelusivut + automaattinen päivitys yhdeksi Bandyliiga-sivuksi.
+```bash
+npm install
+npm start
+```
+
+Tai toinen ottelu:
+
+```bash
+node api/pdf.js 24901
+```
+
+Windowsissa ID:n voi antaa myös ympäristömuuttujalla:
+
+```powershell
+$env:ID="24901"
+npm start
+```
+
+Ohjelma tulostaa JSON-muodossa:
+- PDF-osoitteen
+- HTTP-statuksen
+- Content-Type:n
+- PDF:n koon
+- sivumäärän
+- kaiken PDF:stä puretun tekstin
+- ensimmäiset 5000 merkkiä
+- mahdolliset TorneoPal/Finbandy-verkkopyynnöt
+
+Tärkein tarkistettava kohta on `text`.
