@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bandyliiga – testipalvelu</title>
+<style>
+:root{--scale:1}
+*{box-sizing:border-box}body{margin:0;background:#111;color:#fff;font-family:Arial,sans-serif}
+.wrap{width:min(1200px,calc(100% - 24px));margin:16px auto;transform:scale(var(--scale));transform-origin:top left}
+h1{margin:0 0 12px;font-size:32px}.note{background:#222;padding:12px;border-radius:8px;margin-bottom:12px}
+button{padding:8px 12px;border:0;border-radius:6px;cursor:pointer}
+pre{white-space:pre-wrap;word-break:break-word;background:#080808;padding:12px;border-radius:8px;min-height:180px}
+table{border-collapse:collapse;width:100%;background:#1c1c1c}td,th{padding:8px;border-bottom:1px solid #333;text-align:left}
+.small{opacity:.7;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🏑 Bandyliiga – TorneoPal-testi</h1>
+<div class="note">
+Tämä testi yrittää hakea Finbandyn julkisen Bandyliiga-sivun palvelimen kautta ilman API-avainta.
+URL-skaalaus toimii muodossa <b>?scale=120</b>.
+</div>
+<button onclick="loadTest()">Hae tiedot uudelleen</button>
+<div id="status" class="small"></div>
+<h2>Haettu sisältö</h2>
+<pre id="output">Haetaan…</pre>
+<h2>Palvelimen analyysi</h2>
+<div id="analysis"></div>
+</div>
+<script>
+const p=new URLSearchParams(location.search);
+const s=Math.max(.5,Math.min(2.5,(Number(p.get("scale"))||100)/100));
+document.documentElement.style.setProperty("--scale",s);
+
+async function loadTest(){
+ const st=document.getElementById('status'), out=document.getElementById('output'), a=document.getElementById('analysis');
+ st.textContent='Haetaan…';
+ try{
+   const r=await fetch('/api/test');
+   const j=await r.json();
+   st.textContent=`HTTP ${r.status} – ${new Date().toLocaleTimeString()}`;
+   out.textContent=j.html_preview || j.error || JSON.stringify(j,null,2);
+   a.innerHTML=`<table>
+   <tr><th>HTTP</th><td>${j.http_status??'–'}</td></tr>
+   <tr><th>Sivun koko</th><td>${j.bytes??'–'} tavua</td></tr>
+   <tr><th>Otsikko</th><td>${j.title||'–'}</td></tr>
+   <tr><th>Taulukoita</th><td>${j.tables??'–'}</td></tr>
+   <tr><th>Linkkejä</th><td>${j.links??'–'}</td></tr>
+   <tr><th>Mahdolliset otteluviittaukset</th><td>${j.match_hints??'–'}</td></tr>
+   </table>
+   <p class="small">Jos palvelin saa julkisen HTML:n, seuraava vaihe on tehdä parseri sarjataulukolle ja otteluille.</p>`;
+ }catch(e){st.textContent='Virhe';out.textContent=e.stack||e}
+}
+loadTest();
+</script>
+</body>
+</html>
